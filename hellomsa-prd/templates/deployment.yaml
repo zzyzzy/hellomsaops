@@ -1,23 +1,25 @@
-{{- range .Values.services }}
+{{- $servicelist := .Values.services }}
+{{- range $service := $servicelist }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .name }}-deployment
+  name: {{ $service.name }}-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .name }}
+      app: {{ $service.name }}
   template:
     metadata:
       labels:
-        app: {{ .name }}
+        app: {{ $service.name }}
     spec:
       containers:
-      - name: {{ .name }}
-        image: "{{ .image }}:{{ .tag }}"
+      - name: {{ $service.name }}
+        image: {{ $service.image }}:{{ $service.tag }}
         ports:
-        - containerPort: {{ .port }}
+        - containerPort: {{ $service.port }}
 {{- end }}
 ---
 apiVersion: apps/v1
