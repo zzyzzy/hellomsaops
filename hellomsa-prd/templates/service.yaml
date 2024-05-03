@@ -1,15 +1,17 @@
-{{- range .Values.services }}
+{{- $servicelist := .Values.services }}
+{{- range $service := $servicelist }}
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .name }}-service
+  name: {{ $service.name }}-service
 spec:
   selector:
-    app: {{ .name }}
+    app: {{ $service.name }}
   ports:
     - protocol: TCP
-      port: {{ .port }}
-      targetPort: {{ .port }}
+      port: {{ $service.port }}
+      targetPort: {{ $service.port }}
 {{- end }}
 ---
 apiVersion: v1
