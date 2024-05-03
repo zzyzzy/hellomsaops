@@ -20,6 +20,6 @@ userapp:
   port: 8010
 
 nginx:
-  image: nginx:latest
+  image: nginx
   tag: latest
 
